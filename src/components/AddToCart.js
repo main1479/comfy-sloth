@@ -9,13 +9,23 @@ const AddToCart = ({ product }) => {
 	const { id, stock, colors } = product;
 	const [selectedColor, setSelectedColor] = useState(colors[0]);
 	const [itemCount, setItemCount] = useState(1);
+	const { addToCart } = useCartContext();
 
-	const inc_dec_itemCount = (type) => {
-		if (type === 'inc' && itemCount < stock) {
+	const increase = () => {
+		if (itemCount < stock) {
 			setItemCount(itemCount + 1);
 		}
-		if (type === 'dec' && itemCount > 1) {
+		if (itemCount > stock) {
+			setItemCount(stock);
+		}
+	};
+
+	const decrease = () => {
+		if (itemCount > 1) {
 			setItemCount(itemCount - 1);
+		}
+		if (itemCount < 1) {
+			setItemCount(1);
 		}
 	};
 
@@ -37,8 +47,12 @@ const AddToCart = ({ product }) => {
 				</div>
 			</div>
 			<div className="btn-container">
-				<AmountButtons itemCount={itemCount} setAmount={inc_dec_itemCount} />
-				<Link to="/cart" className="btn">
+				<AmountButtons increase={increase} decrease={decrease} itemCount={itemCount} />
+				<Link
+					to="/cart"
+					className="btn"
+					onClick={() => addToCart(id, selectedColor, itemCount, product)}
+				>
 					Add to cart
 				</Link>
 			</div>

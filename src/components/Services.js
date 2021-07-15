@@ -45,6 +45,7 @@ const Wrapper = styled.section`
 	p {
 		margin-bottom: 0;
 		line-height: 1.8;
+		font-size: 16px;
 		color: var(--clr-primary-3);
 	}
 	.services-center {
@@ -53,11 +54,14 @@ const Wrapper = styled.section`
 		gap: 2.5rem;
 	}
 	.service {
-		background: var(--clr-primary-10);
+		background: #fff;
 		text-align: center;
 		padding: 2.5rem 2rem;
 		border-radius: var(--radius);
+		box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 		p {
+			font-size: 16px;
+			letter-spacing: 1px;
 			color: var(--clr-primary-2);
 		}
 	}

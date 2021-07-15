@@ -17,23 +17,61 @@ const initialState = {
 	allProducts: [],
 	filteredProducts: [],
 	gridView: true,
+	sortBy: 'price-lowest',
+	filters: {
+		search: '',
+		category: 'all',
+		company: 'all',
+		color: 'all',
+		minPrice: 0,
+		maxPrice: 0,
+		price: 0,
+		shipping: false,
+	},
 };
 
 const FilterContext = React.createContext();
 
 export const FilterProvider = ({ children }) => {
-	const [state, dispacth] = useReducer(reducer, initialState);
+	const [state, dispatch] = useReducer(reducer, initialState);
 	const { products } = useProductsContext();
+
 	useEffect(() => {
-		dispacth({ type: LOAD_PRODUCTS, payload: products });
+		dispatch({ type: LOAD_PRODUCTS, payload: products });
 	}, [products]);
 
+	useEffect(() => {
+		dispatch({ type: FILTER_PRODUCTS });
+		dispatch({ type: SORT_PRODUCTS });
+	}, [state.sortBy, state.filters]);
+
 	const toggleProductsView = () => {
-		dispacth({ type: TOGGLE_PRODUCTS_VIEW });
+		dispatch({ type: TOGGLE_PRODUCTS_VIEW });
+	};
+
+	const handleFilterChange = (e) => {
+		let name = e.target.name;
+		let value = e.target.value;
+		if (name === 'category') value = e.target.dataset.category;
+		if (name === 'color') value = e.target.dataset.color;
+		if (name === 'price') value = Number(value);
+		if (name === 'shipping') value = e.target.checked;
+		dispatch({ type: UPDATE_FILTERS, payload: { name, value } });
+	};
+
+	const setSort = (e) => {
+		const value = e.target.value;
+		dispatch({ type: UPDATE_SORT, payload: value });
+	};
+
+	const handleClearFilters = () => {
+		dispatch({ type: CLEAR_FILTERS });
 	};
 
 	return (
-		<FilterContext.Provider value={{ ...state, toggleProductsView }}>
+		<FilterContext.Provider
+			value={{ ...state, toggleProductsView, setSort, handleFilterChange, handleClearFilters }}
+		>
 			{children}
 		</FilterContext.Provider>
 	);
