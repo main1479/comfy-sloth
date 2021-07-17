@@ -6,12 +6,31 @@ import { useCartContext } from '../context/cart_context';
 import { Link } from 'react-router-dom';
 
 const CheckoutPage = () => {
+	const { cart } = useCartContext();
 	return (
 		<main>
 			<PageHero title="Checkout" />
-      <h2>Checkout Page</h2>
+			<Wrapper className="page">
+				{cart.length > 0 ? (
+					<StripeCheckout />
+				) : (
+					<div className="empty">
+						<h2>Your cart is empty</h2>
+						<Link className="btn" to="/products">
+							fill it
+						</Link>
+					</div>
+				)}
+			</Wrapper>
 		</main>
 	);
 };
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	.empty {
+		text-align: center;
+	}
+`;
 export default CheckoutPage;

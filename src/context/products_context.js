@@ -3,9 +3,7 @@ import React, { useContext, useEffect, useReducer } from 'react';
 import reducer from '../reducers/products_reducer';
 import { products_url as url } from '../utils/constants';
 import {
-	SIDEBAR_OPEN,
 	SIDEBAR_TOGGLE,
-	SIDEBAR_CLOSE,
 	GET_PRODUCTS_BEGIN,
 	GET_PRODUCTS_SUCCESS,
 	GET_PRODUCTS_ERROR,

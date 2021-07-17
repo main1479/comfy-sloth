@@ -15,20 +15,24 @@ import {
 
 function App() {
 	return (
-		<Router>
-			<Navbar />
-			<Sidebar />
-			<Switch>
-				<Route path="/products/:id" component={SingleProductPage} />
-				<Route path="/cart" component={CartPage} />
-				<Route path="/products" exact component={ProductsPage} />
-				<Route path="/checkout" component={CheckoutPage} />
-				<Route path="/about" component={AboutPage} />
-				<Route path="/" exact component={HomePage} />
-				<Route path="*" component={ErrorPage} />
-			</Switch>
-			<Footer />
-		</Router>
+		<AuthWrapper>
+			<Router>
+				<Navbar />
+				<Sidebar />
+				<Switch>
+					<Route path="/products/:id" component={SingleProductPage} />
+					<Route path="/cart" component={CartPage} />
+					<Route path="/products" exact component={ProductsPage} />
+					<PrivateRoute path="/checkout">
+						<CheckoutPage />
+					</PrivateRoute>
+					<Route path="/about" component={AboutPage} />
+					<Route path="/" exact component={HomePage} />
+					<Route path="*" component={ErrorPage} />
+				</Switch>
+				<Footer />
+			</Router>
+		</AuthWrapper>
 	);
 }
 

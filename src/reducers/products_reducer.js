@@ -1,7 +1,5 @@
 import { produce } from 'immer';
 import {
-	SIDEBAR_OPEN,
-	SIDEBAR_CLOSE,
 	GET_PRODUCTS_BEGIN,
 	GET_PRODUCTS_SUCCESS,
 	GET_PRODUCTS_ERROR,

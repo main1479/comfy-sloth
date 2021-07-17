@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import logo from '../assets/logo.svg';
 import { BsFilterRight } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { links } from '../utils/constants';
 import CartButtons from './CartButtons';
 import { useProductsContext } from '../context/products_context';
@@ -10,6 +10,7 @@ import { useUserContext } from '../context/user_context';
 
 const Nav = () => {
 	const { isSidebarOpen, sidebarToggle } = useProductsContext();
+	const { myUser } = useUserContext();
 	return (
 		<NavContainer>
 			<div className="nav-center">
@@ -24,9 +25,18 @@ const Nav = () => {
 				<ul className="nav-links">
 					{links.map((link) => (
 						<li key={link.id}>
-							<Link to={link.url}>{link.text}</Link>
+							<NavLink exact to={link.url}>
+								{link.text}
+							</NavLink>
 						</li>
 					))}
+					{myUser && (
+						<li>
+							<NavLink exact to="/checkout">
+								checkout
+							</NavLink>
+						</li>
+					)}
 				</ul>
 				<CartButtons />
 			</div>
@@ -103,7 +113,7 @@ const NavContainer = styled.nav`
 					transition: transform 0.3s linear;
 					transform-origin: bottom right;
 				}
-
+				&.active::after,
 				&:hover::after {
 					transform: scaleX(1);
 					transform-origin: bottom left;

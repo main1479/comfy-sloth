@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 const SingleProductPage = () => {
 	const { id } = useParams();
+	const history = useHistory();
 	const {
 		isSingleProductLoading: loading,
 		singleProduct: product,
@@ -18,7 +19,16 @@ const SingleProductPage = () => {
 
 	useEffect(() => {
 		fetchSingleProduct(`${url}${id}`);
+		// eslint-disable-next-line
 	}, [id]);
+	useEffect(() => {
+		if (error) {
+			setTimeout(() => {
+				history.push('/');
+			}, 3000);
+		}
+		// eslint-disable-next-line
+	}, [error]);
 
 	if (loading) {
 		return <Loading />;
@@ -26,8 +36,7 @@ const SingleProductPage = () => {
 	if (error) {
 		return <Error />;
 	}
-	const { images, name, stars, reviews, price, description, colors, stock, category, company } =
-		product;
+	const { images, name, stars, reviews, price, description, stock, category, company } = product;
 	return (
 		<Wrapper>
 			<PageHero title={name} product />

@@ -1,8 +1,6 @@
 import { produce } from 'immer';
 import {
 	LOAD_PRODUCTS,
-	SET_LISTVIEW,
-	SET_GRIDVIEW,
 	UPDATE_SORT,
 	SORT_PRODUCTS,
 	UPDATE_FILTERS,
