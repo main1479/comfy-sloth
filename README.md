@@ -1,4 +1,4 @@
-### Initial commit done (needs to fixed some responsive issue)
+### Initial commit done (needs to fix some responsive issue)
 
 #### Older React Version
 
