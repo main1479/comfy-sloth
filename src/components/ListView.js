@@ -51,7 +51,7 @@ const Wrapper = styled.section`
 	}
 	.btn {
 		font-size: 0.5rem;
-		padding: 0.25rem 0.5rem;
+		padding: 0.7rem 1.2rem;
 	}
 	@media (min-width: 992px) {
 		article {
